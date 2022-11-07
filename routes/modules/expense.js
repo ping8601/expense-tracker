@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-// index page
-router.get('/', (req, res) => {
-  res.render('index')
+// add expense
+router.get('/new', (req, res) => {
+  return res.render('new')
 })
 
 module.exports = router
