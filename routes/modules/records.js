@@ -1,5 +1,6 @@
 const express = require('express')
 const moment = require('moment')
+const record = require('../../models/record')
 const router = express.Router()
 
 const Record = require('../../models/record')
@@ -41,8 +42,20 @@ router.put('/:id', (req, res) => {
       record.date = date
       record.category = category
       record.amount = amount
-      console.log('done')
       return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.error(error))
+})
+
+// delete expense
+router.delete('/:id', (req, res) => {
+  const _id = req.params.id
+  return Record.findById(_id)
+    .then(record => {
+      if (record !== null) {
+        return record.remove()
+      }
     })
     .then(() => res.redirect('/'))
     .catch(error => console.error(error))

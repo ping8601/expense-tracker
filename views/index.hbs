@@ -23,9 +23,11 @@
         <div class="col-auto">
           <div class="name-text">{{ this.amount }}</div>
         </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-info">修改</button>
-          <button class="btn btn-outline-secondary">刪除</button>
+        <div class="col-auto d-flex">
+          <a href="/records/{{ this._id }}/edit" class="btn btn-outline-info me-2">修改</a>
+          <form action="/records/{{ this._id }}/?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-outline-secondary">刪除</button>
+          </form>
         </div>
       </div>
     </li>
