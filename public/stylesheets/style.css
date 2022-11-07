@@ -1,0 +1,23 @@
+.container.custom-container-width {
+  max-width: 600px;
+}
+.total-text {
+  font-size: 50px;
+  color: #ec673e;
+}
+
+.fa-solid {
+  font-size: 40px;
+  color: #9edbe6;
+}
+
+.category-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.date-text {
+  font-size: 12px;
+  color: #555555;
+}

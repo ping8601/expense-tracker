@@ -11,6 +11,9 @@ const port = 3000
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: 'hbs'}))
 app.set('view engine', 'hbs')
 
+// use static files
+app.use(express.static('public'))
+
 // set routes
 app.use(routes)
 
