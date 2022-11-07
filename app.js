@@ -2,10 +2,14 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const routes = require('./routes')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 // set template engine
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: 'hbs'}))
