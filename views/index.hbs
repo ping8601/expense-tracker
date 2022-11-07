@@ -7,17 +7,21 @@
   </select>
   <div class="d-flex justify-content-between title">
     <h5>總金額：</h5>
-    <h1 class="total-text">25260</h1>
+    <h1 class="total-text">{{ total }}</h1>
   </div>
   <ul class="list-group list-group-flush mb-5 mt-3">
-    <li class="list-group-item list-group-item-light">
+    {{#each records}}
+    <li class="list-group-item {{#if (if_odd @index)}} list-group-item-secondary {{else}} list-group-item-light{{/if}}">
       <div class="row align-items-center">
         <div class="col-auto">
           <i class="fa-solid fa-house"></i>
         </div>
         <div class="col-auto me-auto">
-          <div class="name-text">午餐</div>
-          <div class="note">2019/04/23</div>
+          <div class="name-text">{{ this.name }}</div>
+          <div class="note">{{ this.date }}</div>
+        </div>
+        <div class="col-auto">
+          <div class="name-text">{{ this.amount }}</div>
         </div>
         <div class="col-auto">
           <button class="btn btn-outline-info">修改</button>
@@ -25,51 +29,7 @@
         </div>
       </div>
     </li>
-    <li class="list-group-item list-group-item-secondary">
-      <div class="row align-items-center">
-        <div class="col-auto">
-          <i class="fa-solid fa-house"></i>
-        </div>
-        <div class="col-auto me-auto">
-          <div class="name-text">午餐</div>
-          <div class="note">2019/04/23</div>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-info">修改</button>
-          <button class="btn btn-outline-secondary">刪除</button>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item list-group-item-light">
-      <div class="row align-items-center">
-        <div class="col-auto">
-          <i class="fa-solid fa-house"></i>
-        </div>
-        <div class="col-auto me-auto">
-          <div class="name-text">午餐</div>
-          <div class="note">2019/04/23</div>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-info">修改</button>
-          <button class="btn btn-outline-secondary">刪除</button>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item list-group-item-secondary">
-      <div class="row align-items-center">
-        <div class="col-auto">
-          <i class="fa-solid fa-house"></i>
-        </div>
-        <div class="col-auto me-auto">
-          <div class="name-text">午餐</div>
-          <div class="note">2019/04/23</div>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-outline-info">修改</button>
-          <button class="btn btn-outline-secondary">刪除</button>
-        </div>
-      </div>
-    </li>
+    {{/each}}
   </ul>
   <div class="d-grid gap-2 col-6 mx-auto">
     <a class="btn btn-info" href="/records/new">新增支出</a>

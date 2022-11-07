@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const recoedSchema = new Schema({
+const recordSchema = new Schema({
   name: {
     type: String,
     required: true
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   category: {
     type: String,
@@ -20,4 +20,4 @@ const recoedSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Record', recoedSchema)
+module.exports = mongoose.model('Record', recordSchema)
