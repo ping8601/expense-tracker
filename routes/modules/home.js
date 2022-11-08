@@ -13,20 +13,20 @@ router.get('/', (req, res) => {
   Category.find()
     .lean()
     .then(items => items.forEach(item => {
-      if (item.name === selectedCategory) {
+      if (item._id.toString() === selectedCategory) {
         item.selected = true
       }
       categories.push(item)
     }))
     .then(() => {
-      return Record.find(selectedCategory === '' || !selectedCategory ? { userId } : { userId, category: selectedCategory })
+      return Record.find(selectedCategory === '' || !selectedCategory ? { userId } : { userId, categoryId: selectedCategory })
         .lean()
         .sort({ date: 'desc' })
         .then(records => {
           let total = 0
           records.forEach(record => {
             total += record.amount
-            record.category = categories.find(category => category.name === record.category).icon
+            record.icon = categories.find(category => category._id.toString() === record.categoryId.toString()).icon
             record.date = moment(record.date).format('YYYY/MM/DD')
           })
           return res.render('index', { records, total, categories })

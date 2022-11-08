@@ -34,9 +34,8 @@
       </div>
       <div class="col-8">
         <select class="form-control" id="category" name="category" required>
-          <option selected hidden>{{ record.category }}</option>
             {{#each categories}}
-            <option value="{{ this.name }}">{{ this.name }}</option>
+            <option value="{{ this.name }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
             {{/each}}
         </select>
       </div>

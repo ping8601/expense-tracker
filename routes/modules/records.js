@@ -17,14 +17,18 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
-  return Record.create({
-    name,
-    date,
-    category,
-    amount,
-    userId
-  })
-    .then(() => res.redirect('/'))
+  return Category.findOne({ name: category })
+    .then(category => {
+      Record.create({
+        name,
+        date,
+        categoryId: category._id,
+        amount,
+        userId
+      })
+        .then(() => res.redirect('/'))
+        .catch(error => console.error(error))
+    })
     .catch(error => console.error(error))
 })
 
@@ -41,6 +45,7 @@ router.get('/:id/edit', (req, res) => {
         .lean()
         .then(record => {
           const date = moment(record.date).format('YYYY-MM-DD')
+          categories[categories.findIndex(category => category._id.toString() === record.categoryId.toString())].selected = true
           record.date = date
           res.render('edit', { record, categories })
         })
@@ -52,15 +57,19 @@ router.put('/:id', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
   const _id = req.params.id
-  return Record.findOne({ _id, userId })
-    .then(record => {
-      record.name = name
-      record.date = date
-      record.category = category
-      record.amount = amount
-      return record.save()
+  return Category.findOne({ name: category })
+    .then(category => {
+      Record.findOne({ _id, userId })
+        .then(record => {
+          record.name = name
+          record.date = date
+          record.categoryId = category._id
+          record.amount = amount
+          return record.save()
+        })
+        .then(() => res.redirect('/'))
+        .catch(error => console.error(error))
     })
-    .then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
 
