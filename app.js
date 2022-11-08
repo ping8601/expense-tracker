@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -36,6 +37,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+// use passport
+usePassport(app)
 
 // use static files
 app.use(express.static('public'))
