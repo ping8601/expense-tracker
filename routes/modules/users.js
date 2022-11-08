@@ -1,11 +1,16 @@
 const express = require('express')
 const router = express.Router()
 
-//login
+// login
 router.get('/login', (req, res) => {
   res.render('login')
 })
 
-//logout
+// register
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
+// logout
 
 module.exports = router
