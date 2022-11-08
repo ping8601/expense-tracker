@@ -1,5 +1,4 @@
-<div class="card card-body m-5">
-
+ 
   <div class="row mt-3">
     <div class="col-3">
       <p class="note">*必填欄位</p>
@@ -37,7 +36,7 @@
         <select class="form-control" id="category" name="category" required>
           <option selected hidden>請選擇支出種類...</option>
           {{#each categories}}
-          <option value="{{ this }}">{{ this }}</option>
+          <option value="{{ this.name }}">{{ this.name }}</option>
           {{/each}}
         </select>
       </div>

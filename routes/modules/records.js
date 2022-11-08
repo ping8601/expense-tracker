@@ -1,21 +1,21 @@
 const express = require('express')
 const moment = require('moment')
-const record = require('../../models/record')
 const router = express.Router()
 
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const categories = {}
 
 // add expense
 router.get('/new', (req, res) => {
+  const categories = []
   return Category.find()
-    .then(items => items.forEach(item => categories[item.name] = item.icon))
-    .then(() => res.render('new', { categories: Object.keys(categories) }))
+    .lean()
+    .then(items => items.forEach(item => categories.push(item)))
+    .then(() => res.render('new', { categories }))
     .catch(error => console.error(error))
 })
 router.post('/', (req, res) => {
-  const {name, date, category, amount} = req.body
+  const { name, date, category, amount } = req.body
   return Record.create({
     name,
     date,
@@ -29,20 +29,21 @@ router.post('/', (req, res) => {
 // edit expense
 router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
+  const categories = []
   return Category.find()
-    .then(items => items.forEach(item => categories[item.name] = item.icon))
+    .lean()
+    .then(items => items.forEach(item => categories.push(item)))
     .then(() => {
       return Record.findById(_id)
         .lean()
         .then(record => {
           const date = moment(record.date).format('YYYY-MM-DD')
           record.date = date
-          res.render('edit', { record , categories: Object.keys(categories)})
+          res.render('edit', { record, categories })
         })
-        .catch(error => console.error(error)) 
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
-  return 
 })
 router.put('/:id', (req, res) => {
   const { name, date, category, amount } = req.body

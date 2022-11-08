@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
       }
       categories.push(item)
     }))
-    .then (() => {
-      return Record.find(selectedCategory === "" || !selectedCategory ?  {} : { category: selectedCategory })
+    .then(() => {
+      return Record.find(selectedCategory === '' || !selectedCategory ? {} : { category: selectedCategory })
         .lean()
-        .sort({ date: 'desc'})
+        .sort({ date: 'desc' })
         .then(records => {
           let total = 0
           records.forEach(record => {

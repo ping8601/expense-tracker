@@ -1,0 +1,20 @@
+<div class="card card-body m-5">
+  <h1 class="text-center mt-3">Login</h1>
+  <form action="/users/login" method="POST">
+    <div class="mb-2">
+      <label for="email" class="mb-2">Email</label>
+      <input type="email" class="form-control" name="email" id="email" placeholder="請輸入您的信箱...">
+    </div>
+    <div class="mb-4">
+      <label for="password" class="mb-2">Password</label>
+      <input type="password" class="form-control" name="password" id="password"
+        placeholder="請輸入您的密碼...">
+    </div>
+    <div class="d-grid gap-3">
+      <button type="submit" class="btn btn-secondary">Login</button>
+      <a href="/auth/facebook" class="btn btn-primary">Facebook Login</a>
+      <a href="/auth/google" class="btn btn-danger">Google Login</a>
+    </div>
+  </form>
+  <p>Don't have an account? <a href="/users/register">Register</a></p>
+</div>

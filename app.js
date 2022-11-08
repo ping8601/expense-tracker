@@ -18,12 +18,14 @@ app.use(express.urlencoded({ extended: true }))
 
 // set template engine
 app.engine('hbs', exphbs({
-  defaultLayout: 'main', 
-  extname: 'hbs', 
-  helpers: {if_odd(n){
-    if (n % 2 === 0) return false
-    else return true 
-  }}
+  defaultLayout: 'main',
+  extname: 'hbs',
+  helpers: {
+    if_odd (n) {
+      if (n % 2 === 0) return false
+      else return true
+    }
+  }
 }))
 app.set('view engine', 'hbs')
 
