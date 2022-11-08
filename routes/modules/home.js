@@ -9,6 +9,7 @@ const Category = require('../../models/category')
 router.get('/', (req, res) => {
   const categories = []
   const selectedCategory = req.query.selectedCategory
+  const userId = req.user._id
   Category.find()
     .lean()
     .then(items => items.forEach(item => {
@@ -18,7 +19,7 @@ router.get('/', (req, res) => {
       categories.push(item)
     }))
     .then(() => {
-      return Record.find(selectedCategory === '' || !selectedCategory ? {} : { category: selectedCategory })
+      return Record.find(selectedCategory === '' || !selectedCategory ? { userId } : { userId, category: selectedCategory })
         .lean()
         .sort({ date: 'desc' })
         .then(records => {
