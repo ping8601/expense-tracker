@@ -47,6 +47,13 @@ app.use(express.static('public'))
 // use method-override
 app.use(methodOverride('_method'))
 
+// add a middleware to add variables for view engine
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  return next()
+})
+
 // set routes
 app.use(routes)
 
