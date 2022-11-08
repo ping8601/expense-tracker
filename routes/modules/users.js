@@ -16,6 +16,12 @@ router.post('/login',
   })
 )
 
+// logout
+router.get('/logout', (req, res)=> {
+  req.logout()
+  return res.redirect('/users/login')
+})
+
 // register
 router.get('/register', (req, res) => {
   res.render('register')
