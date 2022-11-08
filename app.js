@@ -1,5 +1,6 @@
 // require required packages
 const express = require('express')
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 
@@ -28,6 +29,13 @@ app.engine('hbs', exphbs({
   }
 }))
 app.set('view engine', 'hbs')
+
+// use session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}))
 
 // use static files
 app.use(express.static('public'))
