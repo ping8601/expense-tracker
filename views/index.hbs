@@ -11,6 +11,7 @@
     <h5>總金額：</h5>
     <h1 class="total-text">{{ total }}</h1>
   </div>
+  {{> message}}
   <ul class="list-group list-group-flush mb-5 mt-3">
     {{#each records}}
     <li class="list-group-item {{#if (if_odd @index)}} list-group-item-secondary {{else}} list-group-item-light{{/if}}">

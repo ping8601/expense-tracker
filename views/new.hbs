@@ -1,4 +1,5 @@
- 
+<div class="card card-body m-5">
+  
   <div class="row mt-3">
     <div class="col-3">
       <p class="note">*必填欄位</p>
@@ -7,7 +8,7 @@
       <h4 class="text-center">請輸入你的支出</h4>
     </div>
   </div>
-
+  {{> message}}
   <form action="/records" method="POST" class="container form-group">
 
     <div class="row mt-3">
@@ -15,7 +16,7 @@
         <label for="name" class="col-form-label">名稱*：</label>
       </div>
       <div class="col-8">
-        <input type="text" id="name" class="form-control" name="name" placeholder="請輸入支出項目名稱..." required>
+        <input type="text" id="name" class="form-control" name="name" placeholder="請輸入支出項目名稱..." value="{{ name }}" required>
       </div>
     </div>
 
@@ -24,7 +25,7 @@
         <label for="date" class="col-form-label">日期*：</label>
       </div>
       <div class="col-8">
-        <input type="date" id="date" name="date" class="form-control" placeholder="請輸入支出日期...">
+        <input type="date" id="date" name="date" class="form-control" placeholder="請輸入支出日期..." value="{{ date }}">
       </div>
     </div>
 
@@ -34,9 +35,9 @@
       </div>
       <div class="col-8">
         <select class="form-control" id="category" name="category" required>
-          <option selected hidden>請選擇支出種類...</option>
+          <option value="" selected hidden>請選擇支出種類...</option>
           {{#each categories}}
-          <option value="{{ this.name }}">{{ this.name }}</option>
+          <option value="{{ this.name }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
           {{/each}}
         </select>
       </div>
@@ -48,12 +49,13 @@
       </div>
       <div class="col-8">
         <input type="number" id="amount" name="amount" class="form-control"
-          placeholder="請輸入支出金額..." required>
+          placeholder="請輸入支出金額..." value="{{ amount }}" required>
       </div>
     </div>
 
     <div class="row mt-5">
       <button type="submit" class="btn btn-outline-info btn-block">新增支出</button>
     </div>
+
   </form>
 </div>
