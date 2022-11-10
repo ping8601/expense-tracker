@@ -11,7 +11,7 @@
 
   {{> message}}
 
-  <form action="/records/{{ record._id }}?_method=PUT" method="POST" class="container form-group">
+  <form action="/records/{{#if _id}}{{_id}}{{else}}{{ record._id }}{{/if}}?_method=PUT" method="POST" class="container form-group">
     <div class="row mt-3">
       <div class="col-4">
         <label for="name" class="col-form-label">名稱*：</label>

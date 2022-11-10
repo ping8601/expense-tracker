@@ -62,7 +62,7 @@ router.get('/:id/edit', (req, res) => {
           const date = moment(record.date).format('YYYY-MM-DD')
           categories[categories.findIndex(category => category._id.toString() === record.categoryId.toString())].selected = true
           record.date = date
-          res.render('edit', { record, categories })
+          return res.render('edit', { record, categories })
         })
         .catch(error => console.error(error))
     })
@@ -83,22 +83,21 @@ router.put('/:id', (req, res) => {
         errors.push({ 'message': '所有欄位都是必填！' })
       }
       if (errors.length !== 0) {
-        return res.render('edit', { errors, name, date, category, amount, categories })
-      } else {
-        return Record.findOne({ _id, userId })
-                    .then(record => {
-                      record.name = name
-                      record.date = date
-                      record.categoryId = categories[categories.findIndex(item => item.selected === true)]._id,
-                      record.amount = amount
-                      return record.save()
-                    })
-                    .then(item => {
-                      req.flash('success_msg', `已成功修改：${item.name}`)
-                      return res.redirect('/')
-                    })
-                    .catch(error => console.error(error))
-              }
+        return res.render('edit', { errors, name, date, category, amount, categories, _id })
+      } 
+      return Record.findOne({ _id, userId })
+        .then(record => {
+          record.name = name
+          record.date = date
+          record.categoryId = categories[categories.findIndex(item => item.selected === true)]._id,
+          record.amount = amount
+          return record.save()
+        })
+        .then(item => {
+          req.flash('success_msg', `已成功修改：${item.name}`)
+          return res.redirect('/')
+        })
+        .catch(error => console.error(error))
       })
     .catch(error => console.error(error))
 })
