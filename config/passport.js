@@ -11,7 +11,7 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
   // set local strategy
-  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, 
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true },
     (req, email, password, done) => {
       User.findOne({ email })
         .then(user => {
@@ -19,12 +19,12 @@ module.exports = app => {
             return done(null, false, { message: 'Email未註冊！' })
           }
           bcrypt.compare(password, user.password)
-          .then(isMatch => {
-            if (!isMatch) {
-              return done(null, false, { message: 'Email或密碼錯誤！' })
-            }
-            return done(null, user)
-          })
+            .then(isMatch => {
+              if (!isMatch) {
+                return done(null, false, { message: 'Email或密碼錯誤！' })
+              }
+              return done(null, user)
+            })
         })
         .catch(error => done(error, false))
     }
@@ -46,9 +46,9 @@ module.exports = app => {
         bcrypt.genSalt(10)
           .then(salt => bcrypt.hash(randomPassword, salt))
           .then(hash => User.create({
-              name,
-              email,
-              password: hash
+            name,
+            email,
+            password: hash
           }))
           .then(user => done(null, user))
           .catch(error => done(error, false))

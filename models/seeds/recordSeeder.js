@@ -39,7 +39,7 @@ db.once('open', () => {
   return Category.find()
     .lean()
     .then(items => categories.push(...items))
-    .then(() => { 
+    .then(() => {
       return bcrypt.genSalt(10)
         .then(salt => bcrypt.hash(SEED_USER.password, salt))
         .then(hash => User.create({
@@ -50,7 +50,7 @@ db.once('open', () => {
         .then(user => {
           const userId = user._id
           return Promise.all(Array.from(
-            {length: 3},
+            { length: 3 },
             (_, i) => Record.create({
               name: SEED_RECORDS[i].name,
               date: SEED_RECORDS[i].date,
@@ -66,5 +66,4 @@ db.once('open', () => {
         })
         .catch(error => console.error(error))
     })
-
 })

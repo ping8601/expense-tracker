@@ -16,7 +16,6 @@ router.get('/new', (req, res) => {
 })
 router.post('/', (req, res) => {
   const userId = req.user._id
-  console.log(req.body)
   const { name, date, category, amount } = req.body
   const categories = []
   const errors = []
@@ -24,8 +23,8 @@ router.post('/', (req, res) => {
     .lean()
     .then(items => items.forEach(item => categories.push(item)))
     .then(() => {
-      if (!name || !date || category === "" || !amount) {
-        errors.push({ 'message': '所有欄位都是必填！' })
+      if (!name || !date || category === '' || !amount) {
+        errors.push({ message: '所有欄位都是必填！' })
       }
       if (errors.length !== 0) {
         return res.render('new', { errors, name, date, category, amount, categories })
@@ -43,7 +42,7 @@ router.post('/', (req, res) => {
           return res.redirect('/')
         })
         .catch(error => console.error(error))
-      }
+    }
     )
     .catch(error => console.error(error))
 })
@@ -80,17 +79,17 @@ router.put('/:id', (req, res) => {
     .then(items => items.forEach(item => categories.push(item)))
     .then(() => {
       categories[categories.findIndex(item => item.name.toString() === category)].selected = true
-      if (!name || !date || category === "" || !amount) {
-        errors.push({ 'message': '所有欄位都是必填！' })
+      if (!name || !date || category === '' || !amount) {
+        errors.push({ message: '所有欄位都是必填！' })
       }
       if (errors.length !== 0) {
         return res.render('edit', { errors, name, date, category, amount, categories, _id })
-      } 
+      }
       return Record.findOne({ _id, userId })
         .then(record => {
           record.name = name
           record.date = date
-          record.categoryId = categories[categories.findIndex(item => item.selected === true)]._id,
+          record.categoryId = categories[categories.findIndex(item => item.selected === true)]._id
           record.amount = amount
           return record.save()
         })
@@ -99,7 +98,7 @@ router.put('/:id', (req, res) => {
           return res.redirect('/')
         })
         .catch(error => console.error(error))
-      })
+    })
     .catch(error => console.error(error))
 })
 
@@ -107,7 +106,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  return Record.findOne({ _id, userId})
+  return Record.findOne({ _id, userId })
     .then(record => {
       if (record !== null) {
         return record.remove()
