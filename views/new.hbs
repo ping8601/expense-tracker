@@ -16,7 +16,7 @@
         <label for="name" class="col-form-label">名稱*：</label>
       </div>
       <div class="col-8">
-        <input type="text" id="name" class="form-control" name="name" placeholder="請輸入支出項目名稱..." value="{{ name }}" required>
+        <input type="text" id="name" class="form-control" name="name" placeholder="請輸入支出項目名稱..." value="{{ name }}">
       </div>
     </div>
 
@@ -34,7 +34,7 @@
         <label for="category" class="col-form-label">類別*：</label>
       </div>
       <div class="col-8">
-        <select class="form-control" id="category" name="category" required>
+        <select class="form-control" id="category" name="category">
           <option value="" selected hidden>請選擇支出種類...</option>
           {{#each categories}}
           <option value="{{ this.name }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
@@ -49,7 +49,7 @@
       </div>
       <div class="col-8">
         <input type="number" id="amount" name="amount" class="form-control"
-          placeholder="請輸入支出金額..." value="{{ amount }}" required>
+          placeholder="請輸入支出金額..." value="{{ amount }}">
       </div>
     </div>
 

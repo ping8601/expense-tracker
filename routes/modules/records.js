@@ -16,6 +16,7 @@ router.get('/new', (req, res) => {
 })
 router.post('/', (req, res) => {
   const userId = req.user._id
+  console.log(req.body)
   const { name, date, category, amount } = req.body
   const categories = []
   const errors = []
@@ -23,27 +24,27 @@ router.post('/', (req, res) => {
     .lean()
     .then(items => items.forEach(item => categories.push(item)))
     .then(() => {
-      categories[categories.findIndex(item => item.name.toString() === category)].selected = true
       if (!name || !date || category === "" || !amount) {
         errors.push({ 'message': '所有欄位都是必填！' })
       }
       if (errors.length !== 0) {
         return res.render('new', { errors, name, date, category, amount, categories })
-      } else {
-        return Record.create({
-          name,
-          date,
-          categoryId: categories[categories.findIndex(item => item.selected === true)]._id,
-          amount,
-          userId
-        })
-          .then(item => {
-            req.flash('success_msg', `已成功新增：${item.name}`)
-            return res.redirect('/')
-          })
-          .catch(error => console.error(error))
       }
-    })
+      categories[categories.findIndex(item => item.name.toString() === category)].selected = true
+      return Record.create({
+        name,
+        date,
+        categoryId: categories[categories.findIndex(item => item.selected === true)]._id,
+        amount,
+        userId
+      })
+        .then(item => {
+          req.flash('success_msg', `已成功新增：${item.name}`)
+          return res.redirect('/')
+        })
+        .catch(error => console.error(error))
+      }
+    )
     .catch(error => console.error(error))
 })
 

@@ -25,7 +25,7 @@ const categories = [{
 db.once('open', () => {
   return Category.create(categories)
     .then(() => {
-      console.log('Done!')
+      console.log('Category seeder done!')
       process.exit()
     })
     .catch(error => console.error(error))
